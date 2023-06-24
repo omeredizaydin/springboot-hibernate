@@ -11,19 +11,27 @@ public class DemoController {
 
   //define a private field for the dependency
   private Coach coach;
+  private Coach anotherCoach;
 
   // define a constructor for setter injection
   @Autowired
-  public DemoController(@Qualifier("trackCoachg") Coach coach) {
+  public DemoController(@Qualifier("cricketCoach") Coach coach,
+                        @Qualifier("cricketCoach") Coach anotherCoach) {
     System.out.println("In constructor: "+getClass().getSimpleName());
     this.coach = coach;
+    this.anotherCoach = anotherCoach;
   }
 
 
-  @GetMapping("dailyworkout")
+  @GetMapping("/dailyworkout")
   public String dailyworkout() {
     return coach.getDailyWorkout();
   }
+  @GetMapping("/check")
+  public String check(){
+    return "Comparing beans: coach == anotherCoach ? "+coach.equals(anotherCoach);
+  }
+
 
 
 }
