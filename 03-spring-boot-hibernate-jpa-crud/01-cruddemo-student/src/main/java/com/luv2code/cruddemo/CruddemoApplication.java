@@ -23,9 +23,55 @@ public class CruddemoApplication {
     return runner -> {
       //createStudent(studentDAO);
       //createMultipleStudents(studentDAO);
-      readStudent(studentDAO);
+      //readStudent(studentDAO);
+      //queryForStudents(studentDAO);
+      //queryForStudentsLastName(studentDAO);
+      //updateStudent(studentDAO);
+      deleteStudent(studentDAO);
 
     };
+
+  }
+
+  private void deleteStudent(StudentDAO studentDAO) {
+    int studentId = 5;
+    studentDAO.delete(studentId);
+  }
+
+  private void updateStudent(StudentDAO studentDAO) {
+    //retrieve student based on the id : primary key
+    int studentId = 4;
+    System.out.println("Getting student with id: " + studentId);
+    Student myStudent = studentDAO.findById(studentId);
+    // change last name
+    System.out.println("### Updating student ###");
+    myStudent.setLastName("Kelkit Aydin");
+
+    // update the student
+    studentDAO.update(myStudent);
+
+    //display the updated student
+    System.out.println("### Updated student ###");
+    System.out.println(myStudent);
+  }
+
+  private void queryForStudentsLastName(StudentDAO studentDAO) {
+    List<Student> lastName = studentDAO.findByLastName("Aydin");
+
+    for (Student student : lastName) {
+      System.out.println(student);
+
+    }
+  }
+
+  private void queryForStudents(StudentDAO studentDAO) {
+
+    List<Student> all = studentDAO.findAll();
+
+    for (Student student : all) {
+      System.out.println(student);
+
+    }
 
   }
 
@@ -46,6 +92,7 @@ public class CruddemoApplication {
     }
 
   }
+
   private void createStudent(StudentDAO studentDAO) {
 
     System.out.println("### Creating new student object ###");
@@ -55,19 +102,19 @@ public class CruddemoApplication {
     System.out.println("Saved student. Generated id: " + tempStudent.getId());
   }
 
-  private void readStudent(StudentDAO studentDAO){
+  private void readStudent(StudentDAO studentDAO) {
     System.out.println("### Creating new student object ###");
-    Student tempStudent = new Student("Maide","Aydin","maideaydin@gmail.com");
+    Student tempStudent = new Student("Maide", "Aydin", "maideaydin@gmail.com");
 
     studentDAO.save(tempStudent);
 
     int theId = tempStudent.getId();
-    System.out.println("### saved student. Generated id; "+theId);
+    System.out.println("### saved student. Generated id; " + theId);
 
-    System.out.println("### Retrieving student with id; "+theId);
+    System.out.println("### Retrieving student with id; " + theId);
     Student myStudent = studentDAO.findById(tempStudent.getId());
 
-    System.out.println("### Found the student: "+myStudent);
+    System.out.println("### Found the student: " + myStudent);
 
 
   }
