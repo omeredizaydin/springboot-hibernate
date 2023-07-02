@@ -2,6 +2,7 @@ package com.luv2code.cruddemo.dao;
 
 import com.luv2code.cruddemo.entity.Student;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -64,5 +65,12 @@ public class StudentDAOImpl implements StudentDAO {
   public void delete(Integer id) {
     Student theStudent = entityManager.find(Student.class, id);
     entityManager.remove(theStudent);
+  }
+
+  @Override
+  @Transactional
+  public int deleteAll() {
+    int numRowsDeleted = entityManager.createQuery("DELETE FROM Student").executeUpdate();
+    return numRowsDeleted;
   }
 }

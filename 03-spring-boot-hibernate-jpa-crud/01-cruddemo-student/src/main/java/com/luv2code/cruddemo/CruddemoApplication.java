@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class CruddemoApplication {
 
+
   public static void main(String[] args) {
     SpringApplication.run(CruddemoApplication.class, args);
   }
@@ -22,15 +23,22 @@ public class CruddemoApplication {
   public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
     return runner -> {
       //createStudent(studentDAO);
-      //createMultipleStudents(studentDAO);
+      createMultipleStudents(studentDAO);
       //readStudent(studentDAO);
       //queryForStudents(studentDAO);
       //queryForStudentsLastName(studentDAO);
       //updateStudent(studentDAO);
-      deleteStudent(studentDAO);
+      //deleteStudent(studentDAO);
+      //deleteAll(studentDAO);
 
     };
 
+  }
+
+  private void deleteAll(StudentDAO studentDAO) {
+    System.out.println("### Deleting all students ###");
+    int numRowsDeleted = studentDAO.deleteAll();
+    System.out.println("### Affected rows: "+numRowsDeleted);
   }
 
   private void deleteStudent(StudentDAO studentDAO) {
